@@ -1,14 +1,33 @@
+
 import TodoItem from '@/components/TodoItem'
 import { prisma } from '@/db'
 import Image from 'next/image'
 import Link from 'next/link'
 
+async function toggleTodo(id: string, complete: boolean) {
+  'use server'
+  await prisma.todo.update({
+    where: {
+      id: id,
+    },
+    data: {
+      complete: complete,
+    },
+  })
+
+}
+
+async function deleteTodo (id:string){
+  'use server'
+  await prisma.todo.delete({
+    where:{
+      id:id
+    }
+  })
+}
+
 export default async function Home() {
   const todos = await prisma.todo.findMany()
-  // await prisma.todo.create({data:{
-  //   title:'testing',
-  //   complete:false
-  // }})
   return (
     <>
     <header className='flex justify-between items-center mb-4'>
@@ -19,10 +38,10 @@ export default async function Home() {
      New
      </Link>
     </header>
-    <ul className='pl-4'>
+    <ul  className='pl-4'>
       {todos.map((todo)=>(
 
-         <TodoItem key={todo.id} {...todo}/>
+         <TodoItem key={todo.id} {...todo} toggleTodo={toggleTodo} deleteToDo={deleteTodo} />
 
       ))}
 

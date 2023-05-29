@@ -27,8 +27,8 @@ export default function Page(){
      <h1 className='text-2xl'>
       Todos
      </h1>
-     <Link href='new' className='border border-slate-300 text-slate-300 px-2 py-1 rounded outlined-none'>
-     New
+     <Link href='/' className='border border-slate-300 text-slate-300 px-2 py-1 rounded outlined-none'>
+     Home
      </Link>
     </header>
     <form action={createTodo} className="flex gap-2 flex-col">
